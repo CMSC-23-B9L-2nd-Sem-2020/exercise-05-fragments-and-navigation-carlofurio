@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <dimen name="box_text_size">24sp</dimen>
+    <string name="nickname">Nickname</string>
+    <string name="nickname_text">""</string>
+    <string name="done">Done</string>
+    <string name="reset">reset</string>
+    <string name="count">0</string>
+
+
+</resources>
