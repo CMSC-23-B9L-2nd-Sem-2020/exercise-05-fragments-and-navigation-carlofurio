@@ -11,18 +11,18 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    var count = 0
+    private var count = 0
     override fun onCreate(savedInstanceState: Bundle?) {
 
          super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         findViewById<Button>(R.id.done_button).setOnClickListener {
-            var countText = findViewById<TextView>(R.id.count_text)
+            val countText = findViewById<TextView>(R.id.count_text)
             addNickname(it)     //calling the function addNickname
-            var grid = createList()     //creating an array of array of textview and assigning it to a variable
+            val grid = createList()     //creating an array of array of text  view and assigning it to a variable
             boxVisible(grid)    // calling the function boxVisible
             listener(grid, countText)
-            var resetButton: Button = findViewById(R.id.reset_button)
+            val resetButton: Button = findViewById(R.id.reset_button)
             resetButton.setOnClickListener {        //Listener for the reset button
                 resetGrid(grid,countText)
                 count = 0
@@ -59,18 +59,16 @@ class MainActivity : AppCompatActivity() {
         val box25 = findViewById<TextView>(R.id.box_25_text)
 
 
-         var boxListID: Array<Array<TextView>> = arrayOf( //creating array with value of the id's of the box
-             arrayOf(box1,box2,box3,box4,box5),
-             arrayOf(box6,box7,box8,box9,box10),
-             arrayOf(box11,box12,box13,box14,box15),
-             arrayOf(box16,box17,box18,box19,box20),        //creating an array of array
-             arrayOf(box21,box22,box23,box24,box25)
-
-
-        )
-
         //boxVisible(boxListID)
-        return boxListID            //returning the
+        return arrayOf( //creating array with value of the id's of the box
+            arrayOf(box1,box2,box3,box4,box5),
+            arrayOf(box6,box7,box8,box9,box10),
+            arrayOf(box11,box12,box13,box14,box15),
+            arrayOf(box16,box17,box18,box19,box20),        //creating an array of array
+            arrayOf(box21,box22,box23,box24,box25)
+
+
+       )            //returning the
     }
 
     private fun boxVisible(grid: Array<Array<TextView>>){ //function for making every box becomes color BLUE
@@ -99,70 +97,69 @@ class MainActivity : AppCompatActivity() {
        // var columnCount = -1
 
 
-        for(i: Int in 0 until 4){
+        for(i: Int in 0 until 5){
             //rowCount ++
-            for(j: Int in 0 until 4){
+            for(j: Int in 0 until 5){
                 //columnCount++
                 //box[i][j].setOnClickListener{(onClick(it,box,rowCount,columnCount,countText))
-                box[i][j].setOnClickListener{(onClick(it,box,i,j,countText))}
-
-
+                box[i][j].setOnClickListener{(onClick(box[i][j],box,i,j,countText))}
             }
         }
 
 
     }
-    private fun onClick(indiv: View, indivList: Array<Array<TextView>>, positionX: Int,positionY:Int,countText: TextView){
+    private fun onClick(individual: View, individualList: Array<Array<TextView>>, positionX: Int,positionY:Int,countText: TextView){
 
 
-        if((indiv.background as ColorDrawable).color == Color.BLUE){        //if blue then yellow
-            (indiv.background as ColorDrawable).color = Color.YELLOW
+        if((individual.background as ColorDrawable).color == Color.BLUE){        //if blue then yellow
+            (individual.background as ColorDrawable).color = Color.YELLOW
         }else{
-            (indiv.background as ColorDrawable).color = Color.BLUE
+            (individual.background as ColorDrawable).color = Color.BLUE
         }
 
         count++
         countText.text = count.toString()
-        if((positionX+1) >= 1  || (positionX+1) < 5 ){
-            if((indivList[positionX+1][positionY].background as ColorDrawable).color == Color.BLUE){ //for the adjacent boxes
-                (indivList[positionX+1][positionY].background as ColorDrawable).color = Color.YELLOW
+        if((positionX+1) >=1  && (positionX+1) < 5 ){
+            if((individualList[positionX+1][positionY].background as ColorDrawable).color == Color.BLUE){ //for the adjacent boxes
+                (individualList[positionX+1][positionY].background as ColorDrawable).color = Color.YELLOW
             }else{
-                (indivList[positionX+1][positionY].background as ColorDrawable).color = Color.BLUE
+                (individualList[positionX+1][positionY].background as ColorDrawable).color = Color.BLUE
             }
         }
-        if((positionX-1) <=3 && (positionX-1) >=0){
-            if((indivList[positionX-1][positionY].background as ColorDrawable).color == Color.BLUE){
-                (indivList[positionX-1][positionY].background as ColorDrawable).color = Color.YELLOW
+        if((positionX-1) <=4 && (positionX-1) >=0){
+            if((individualList[positionX-1][positionY].background as ColorDrawable).color == Color.BLUE){
+                (individualList[positionX-1][positionY].background as ColorDrawable).color = Color.YELLOW
             }else{
-                (indivList[positionX-1][positionY].background as ColorDrawable).color = Color.BLUE
+                (individualList[positionX-1][positionY].background as ColorDrawable).color = Color.BLUE
             }
         }
         if((positionY+1) >=1 && (positionY+1) <5){
-            if((indivList[positionX][positionY+1].background as ColorDrawable).color == Color.BLUE){
-                (indivList[positionX][positionY+1].background as ColorDrawable).color = Color.YELLOW
+            if((individualList[positionX][positionY+1].background as ColorDrawable).color == Color.BLUE){
+                (individualList[positionX][positionY+1].background as ColorDrawable).color = Color.YELLOW
             }else{
-                (indivList[positionX][positionY+1].background as ColorDrawable).color = Color.BLUE
+                (individualList[positionX][positionY+1].background as ColorDrawable).color = Color.BLUE
             }
         }
-        if((positionY-1) <=3 && (positionY-1) >=0){
-            if((indivList[positionX][positionY-1].background as ColorDrawable).color == Color.BLUE){
-                (indivList[positionX][positionY-1].background as ColorDrawable).color = Color.YELLOW
+        if((positionY-1) <=4 && (positionY-1) >=0){
+            if((individualList[positionX][positionY-1].background as ColorDrawable).color == Color.BLUE){
+                (individualList[positionX][positionY-1].background as ColorDrawable).color = Color.YELLOW
             }else{
-                (indivList[positionX][positionY-1].background as ColorDrawable).color = Color.BLUE
+                (individualList[positionX][positionY-1].background as ColorDrawable).color = Color.BLUE
             }
         }
 
     }
-
-
-} private fun resetGrid(grid: Array<Array<TextView>>,countText: TextView){  //making all boxes BLUE at first
-    for(i: Int in 0 until 4){
-        for(j: Int in 0 until 4){
-            (grid[i][j].background as ColorDrawable).color = Color.BLUE
+    private fun resetGrid(grid: Array<Array<TextView>>,countText: TextView){  //making all boxes BLUE at first
+        for(i: Int in 0 until 5){
+            for(j: Int in 0 until 5){
+                (grid[i][j].background as ColorDrawable).color = Color.BLUE
+            }
         }
+        val count = 0
+        countText.text = count.toString()
+
     }
-    val count = 0
-    countText.text = count.toString()
 
 }
+
 
